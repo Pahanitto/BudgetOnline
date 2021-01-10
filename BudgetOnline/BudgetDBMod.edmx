@@ -1,0 +1,1800 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище BudgetOnlineModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Number" Type="decimal" Precision="20" Scale="0" />
+          <Property Name="Description" Type="nvarchar" MaxLength="128" />
+          <Property Name="Balance" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="ContractorsID" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="date" Nullable="false" />
+          <Property Name="Type" Type="int" />
+          <Property Name="UsersID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CreditLineDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="DatePay" Type="date" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="CreditLinesID" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" />
+          <Property Name="UsersID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CreditLines">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="DateStart" Type="date" Nullable="false" />
+          <Property Name="DateEnd" Type="date" />
+          <Property Name="IsClose" Type="int" />
+          <Property Name="AllAmount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Percent" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="CountPays" Type="int" />
+          <Property Name="PeriodPaysType" Type="int" />
+          <Property Name="CreditorAccountsID" Type="int" Nullable="false" />
+          <Property Name="BorrowerAccountsID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="127" />
+          <Property Name="Type" Type="int" />
+          <Property Name="UsersID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MoveFundDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="MoveFundsID" Type="int" Nullable="false" />
+          <Property Name="ReasonsID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="Quantity" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="Description" Type="nvarchar" MaxLength="63" />
+          <Property Name="Type" Type="int" />
+          <Property Name="UsersID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MoveFunds">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="FromAccountsID" Type="int" Nullable="false" />
+          <Property Name="ToAccountsID" Type="int" Nullable="false" />
+          <Property Name="DateTimeMove" Type="datetime2" Precision="0" />
+          <Property Name="Description" Type="nvarchar" MaxLength="128" />
+          <Property Name="UsersID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReasonGroups">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+          <Property Name="Type" Type="int" />
+          <Property Name="ReasonGroupsID" Type="int" />
+          <Property Name="UsersID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reasons">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="BarcodeEAN13" Type="decimal" Precision="13" Scale="0" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+          <Property Name="Type_" Type="int" />
+          <Property Name="ReasonGroupsID" Type="int" Nullable="false" />
+          <Property Name="UnitsID" Type="int" />
+          <Property Name="UsersID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReasonSynonyms">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ReasonsID" Type="int" Nullable="false" />
+          <Property Name="UsersID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserGroups">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Desciption" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Type" Type="int" />
+          <Property Name="UserGroupsID" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="EMail" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="FIO" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Gender" Type="bit" />
+          <Property Name="Birthday" Type="date" />
+          <Property Name="DateCreation" Type="date" Nullable="false" />
+          <Property Name="Type" Type="int" />
+          <Property Name="UserGroupsID" Type="int" Nullable="false" />
+          <Property Name="AspNetUserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Towns">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="31" />
+          <Property Name="UsersID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Units">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="63" Nullable="false" />
+          <Property Name="UsersID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="СontractorGroups">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+          <Property Name="Type" Type="int" />
+          <Property Name="СontractorGroupsID" Type="int" />
+          <Property Name="UsersID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Сontractors">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PersonSurname" Type="nvarchar" MaxLength="64" />
+          <Property Name="PersonMiddleName" Type="nvarchar" MaxLength="64" />
+          <Property Name="PersonName" Type="nvarchar" MaxLength="64" />
+          <Property Name="Gender" Type="char" MaxLength="1" />
+          <Property Name="Birthday" Type="date" />
+          <Property Name="TownsID" Type="int" />
+          <Property Name="Address" Type="nvarchar" MaxLength="256" />
+          <Property Name="PhoneNumber1" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneNumber2" Type="nvarchar" MaxLength="50" />
+          <Property Name="WebSiteURL" Type="nvarchar" MaxLength="128" />
+          <Property Name="EMail" Type="nvarchar" MaxLength="128" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+          <Property Name="DateCreated" Type="date" Nullable="false" />
+          <Property Name="Type1" Type="int" />
+          <Property Name="Type2" Type="int" />
+          <Property Name="СontractorTypesID" Type="int" />
+          <Property Name="СontractorGroupsID" Type="int" Nullable="false" />
+          <Property Name="UsersID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="СontractorTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="128" />
+          <Property Name="UnitsID" Type="int" />
+          <Property Name="UsersID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Accounts_ContractorsID">
+          <End Role="Сontractors" Type="Self.Сontractors" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Сontractors">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Accounts">
+              <PropertyRef Name="ContractorsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CreditLineDetails_CreditLinesID">
+          <End Role="CreditLines" Type="Self.CreditLines" Multiplicity="1" />
+          <End Role="CreditLineDetails" Type="Self.CreditLineDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreditLines">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CreditLineDetails">
+              <PropertyRef Name="CreditLinesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CreditLines_BorrowerAccountsID">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="CreditLines" Type="Self.CreditLines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CreditLines">
+              <PropertyRef Name="BorrowerAccountsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CreditLines_CreditorAccountsID">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="CreditLines" Type="Self.CreditLines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CreditLines">
+              <PropertyRef Name="CreditorAccountsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MoveFunds_FromAccountsID">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="MoveFunds" Type="Self.MoveFunds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MoveFunds">
+              <PropertyRef Name="FromAccountsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MoveFunds_ToAccountsID">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="MoveFunds" Type="Self.MoveFunds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MoveFunds">
+              <PropertyRef Name="ToAccountsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MoveFundsDetails_MoveFundsID">
+          <End Role="MoveFunds" Type="Self.MoveFunds" Multiplicity="1" />
+          <End Role="MoveFundDetails" Type="Self.MoveFundDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MoveFunds">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MoveFundDetails">
+              <PropertyRef Name="MoveFundsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReasonGrops_ReasonGropsID">
+          <End Role="ReasonGroups" Type="Self.ReasonGroups" Multiplicity="0..1" />
+          <End Role="ReasonGroups1" Type="Self.ReasonGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReasonGroups">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ReasonGroups1">
+              <PropertyRef Name="ReasonGroupsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reasons_ReasonGroupsID">
+          <End Role="ReasonGroups" Type="Self.ReasonGroups" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Reasons" Type="Self.Reasons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReasonGroups">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Reasons">
+              <PropertyRef Name="ReasonGroupsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reasons_UnitsID">
+          <End Role="Units" Type="Self.Units" Multiplicity="0..1" />
+          <End Role="Reasons" Type="Self.Reasons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Units">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Reasons">
+              <PropertyRef Name="UnitsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReasonSynonym_ReasonsID">
+          <End Role="Reasons" Type="Self.Reasons" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ReasonSynonyms" Type="Self.ReasonSynonyms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reasons">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ReasonSynonyms">
+              <PropertyRef Name="ReasonsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_UserGroupsID">
+          <End Role="UserGroups" Type="Self.UserGroups" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserGroups">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="UserGroupsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_vocReasons_docReasonMoveFundsDeatilReason">
+          <End Role="Reasons" Type="Self.Reasons" Multiplicity="1" />
+          <End Role="MoveFundDetails" Type="Self.MoveFundDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reasons">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MoveFundDetails">
+              <PropertyRef Name="ReasonsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_СontractorGroups_СontractorGroupsID">
+          <End Role="СontractorGroups" Type="Self.СontractorGroups" Multiplicity="0..1" />
+          <End Role="СontractorGroups1" Type="Self.СontractorGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="СontractorGroups">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="СontractorGroups1">
+              <PropertyRef Name="СontractorGroupsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сontractors_TownID">
+          <End Role="Towns" Type="Self.Towns" Multiplicity="0..1" />
+          <End Role="Сontractors" Type="Self.Сontractors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Towns">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Сontractors">
+              <PropertyRef Name="TownsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сontractors_СontractorGroupsID">
+          <End Role="СontractorGroups" Type="Self.СontractorGroups" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Сontractors" Type="Self.Сontractors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="СontractorGroups">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Сontractors">
+              <PropertyRef Name="СontractorGroupsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сontractors_СontractorTypesID">
+          <End Role="СontractorTypes" Type="Self.СontractorTypes" Multiplicity="0..1" />
+          <End Role="Сontractors" Type="Self.Сontractors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="СontractorTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Сontractors">
+              <PropertyRef Name="СontractorTypesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="udf_Accounts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Funds">
+          <Parameter Name="Userid" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID" Type="int" Nullable="false" />
+                <Property Name="Name" Type="nvarchar" MaxLength="64" Nullable="false" />
+                <Property Name="Number" Type="decimal" Precision="20" Scale="0" />
+                <Property Name="Description" Type="nvarchar" MaxLength="128" />
+                <Property Name="Balance" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+                <Property Name="ContractorsID" Type="int" Nullable="false" />
+                <Property Name="DateCreated" Type="date" Nullable="false" />
+                <Property Name="Type" Type="int" />
+                <Property Name="UsersID" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="udf_CreditLineDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Funds">
+          <Parameter Name="Userid" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID" Type="int" Nullable="false" />
+                <Property Name="DatePay" Type="date" Nullable="false" />
+                <Property Name="Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+                <Property Name="CreditLinesID" Type="int" Nullable="false" />
+                <Property Name="Type" Type="int" />
+                <Property Name="UsersID" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="udf_CreditLines" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Funds">
+          <Parameter Name="Userid" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID" Type="int" Nullable="false" />
+                <Property Name="DateStart" Type="date" Nullable="false" />
+                <Property Name="DateEnd" Type="date" />
+                <Property Name="IsClose" Type="int" />
+                <Property Name="AllAmount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+                <Property Name="Percent" Type="decimal" Precision="5" Scale="2" />
+                <Property Name="CountPays" Type="int" />
+                <Property Name="PeriodPaysType" Type="int" />
+                <Property Name="CreditorAccountsID" Type="int" Nullable="false" />
+                <Property Name="BorrowerAccountsID" Type="int" Nullable="false" />
+                <Property Name="Description" Type="nvarchar" MaxLength="127" />
+                <Property Name="Type" Type="int" />
+                <Property Name="UsersID" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="udf_MoveFundDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Funds">
+          <Parameter Name="Userid" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID" Type="int" Nullable="false" />
+                <Property Name="MoveFundsID" Type="int" Nullable="false" />
+                <Property Name="ReasonsID" Type="int" Nullable="false" />
+                <Property Name="Price" Type="decimal" Precision="12" Scale="2" />
+                <Property Name="Quantity" Type="decimal" Precision="7" Scale="2" />
+                <Property Name="Description" Type="nvarchar" MaxLength="63" />
+                <Property Name="Type" Type="int" />
+                <Property Name="UsersID" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="udf_MoveFunds" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Funds">
+          <Parameter Name="Userid" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID" Type="int" Nullable="false" />
+                <Property Name="FromAccountsID" Type="int" Nullable="false" />
+                <Property Name="ToAccountsID" Type="int" Nullable="false" />
+                <Property Name="DateTimeMove" Type="datetime2" Precision="0" />
+                <Property Name="Description" Type="nvarchar" MaxLength="128" />
+                <Property Name="UsersID" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="udf_ReasonGroups" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Reasons">
+          <Parameter Name="Userid" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID" Type="int" Nullable="false" />
+                <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+                <Property Name="Description" Type="nvarchar" MaxLength="256" />
+                <Property Name="Type" Type="int" />
+                <Property Name="ReasonGroupsID" Type="int" />
+                <Property Name="UsersID" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="udf_Reasons" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Reasons">
+          <Parameter Name="Userid" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID" Type="int" Nullable="false" />
+                <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+                <Property Name="BarcodeEAN13" Type="decimal" Precision="13" Scale="0" />
+                <Property Name="Description" Type="nvarchar" MaxLength="256" />
+                <Property Name="Type_" Type="int" />
+                <Property Name="ReasonGroupsID" Type="int" Nullable="false" />
+                <Property Name="UnitsID" Type="int" />
+                <Property Name="UsersID" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="udf_ReasonSynonyms" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Reasons">
+          <Parameter Name="Userid" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID" Type="int" Nullable="false" />
+                <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+                <Property Name="ReasonsID" Type="int" Nullable="false" />
+                <Property Name="UsersID" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="udf_Towns" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Utils">
+          <Parameter Name="Userid" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID" Type="int" Nullable="false" />
+                <Property Name="Name" Type="nvarchar" MaxLength="31" />
+                <Property Name="UsersID" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="udf_Units" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Utils">
+          <Parameter Name="Userid" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID" Type="int" Nullable="false" />
+                <Property Name="Name" Type="nvarchar" MaxLength="63" Nullable="false" />
+                <Property Name="UsersID" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="udf_СontractorGroups" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Сontractors">
+          <Parameter Name="Userid" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID" Type="int" Nullable="false" />
+                <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+                <Property Name="Description" Type="nvarchar" MaxLength="256" />
+                <Property Name="Type" Type="int" />
+                <Property Name="СontractorGroupsID" Type="int" />
+                <Property Name="UsersID" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="udf_Сontractors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Сontractors">
+          <Parameter Name="Userid" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID" Type="int" Nullable="false" />
+                <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+                <Property Name="PersonSurname" Type="nvarchar" MaxLength="64" />
+                <Property Name="PersonMiddleName" Type="nvarchar" MaxLength="64" />
+                <Property Name="PersonName" Type="nvarchar" MaxLength="64" />
+                <Property Name="Gender" Type="char" MaxLength="1" />
+                <Property Name="Birthday" Type="date" />
+                <Property Name="TownsID" Type="int" />
+                <Property Name="Address" Type="nvarchar" MaxLength="256" />
+                <Property Name="PhoneNumber1" Type="nvarchar" MaxLength="50" />
+                <Property Name="PhoneNumber2" Type="nvarchar" MaxLength="50" />
+                <Property Name="WebSiteURL" Type="nvarchar" MaxLength="128" />
+                <Property Name="EMail" Type="nvarchar" MaxLength="128" />
+                <Property Name="Description" Type="nvarchar" MaxLength="256" />
+                <Property Name="DateCreated" Type="date" Nullable="false" />
+                <Property Name="Type1" Type="int" />
+                <Property Name="Type2" Type="int" />
+                <Property Name="СontractorTypesID" Type="int" />
+                <Property Name="СontractorGroupsID" Type="int" Nullable="false" />
+                <Property Name="UsersID" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="udf_СontractorTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Сontractors">
+          <Parameter Name="Userid" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID" Type="int" Nullable="false" />
+                <Property Name="Name" Type="nvarchar" MaxLength="64" Nullable="false" />
+                <Property Name="Description" Type="nvarchar" MaxLength="128" />
+                <Property Name="UnitsID" Type="int" />
+                <Property Name="UsersID" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <EntityContainer Name="Хранилище BudgetOnlineModelContainer">
+          <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="Funds" store:Type="Tables" />
+          <EntitySet Name="CreditLineDetails" EntityType="Self.CreditLineDetails" Schema="Funds" store:Type="Tables" />
+          <EntitySet Name="CreditLines" EntityType="Self.CreditLines" Schema="Funds" store:Type="Tables" />
+          <EntitySet Name="MoveFundDetails" EntityType="Self.MoveFundDetails" Schema="Funds" store:Type="Tables" />
+          <EntitySet Name="MoveFunds" EntityType="Self.MoveFunds" Schema="Funds" store:Type="Tables" />
+          <EntitySet Name="ReasonGroups" EntityType="Self.ReasonGroups" Schema="Reasons" store:Type="Tables" />
+          <EntitySet Name="Reasons" EntityType="Self.Reasons" Schema="Reasons" store:Type="Tables" />
+          <EntitySet Name="ReasonSynonyms" EntityType="Self.ReasonSynonyms" Schema="Reasons" store:Type="Tables" />
+          <EntitySet Name="UserGroups" EntityType="Self.UserGroups" Schema="SoftUsers" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="SoftUsers" store:Type="Tables" />
+          <EntitySet Name="Towns" EntityType="Self.Towns" Schema="Utils" store:Type="Tables" />
+          <EntitySet Name="Units" EntityType="Self.Units" Schema="Utils" store:Type="Tables" />
+          <EntitySet Name="СontractorGroups" EntityType="Self.СontractorGroups" Schema="Сontractors" store:Type="Tables" />
+          <EntitySet Name="Сontractors" EntityType="Self.Сontractors" Schema="Сontractors" store:Type="Tables" />
+          <EntitySet Name="СontractorTypes" EntityType="Self.СontractorTypes" Schema="Сontractors" store:Type="Tables" />
+          <AssociationSet Name="FK_Accounts_ContractorsID" Association="Self.FK_Accounts_ContractorsID">
+            <End Role="Сontractors" EntitySet="Сontractors" />
+            <End Role="Accounts" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CreditLineDetails_CreditLinesID" Association="Self.FK_CreditLineDetails_CreditLinesID">
+            <End Role="CreditLines" EntitySet="CreditLines" />
+            <End Role="CreditLineDetails" EntitySet="CreditLineDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CreditLines_BorrowerAccountsID" Association="Self.FK_CreditLines_BorrowerAccountsID">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="CreditLines" EntitySet="CreditLines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CreditLines_CreditorAccountsID" Association="Self.FK_CreditLines_CreditorAccountsID">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="CreditLines" EntitySet="CreditLines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MoveFunds_FromAccountsID" Association="Self.FK_MoveFunds_FromAccountsID">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="MoveFunds" EntitySet="MoveFunds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MoveFunds_ToAccountsID" Association="Self.FK_MoveFunds_ToAccountsID">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="MoveFunds" EntitySet="MoveFunds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MoveFundsDetails_MoveFundsID" Association="Self.FK_MoveFundsDetails_MoveFundsID">
+            <End Role="MoveFunds" EntitySet="MoveFunds" />
+            <End Role="MoveFundDetails" EntitySet="MoveFundDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReasonGrops_ReasonGropsID" Association="Self.FK_ReasonGrops_ReasonGropsID">
+            <End Role="ReasonGroups" EntitySet="ReasonGroups" />
+            <End Role="ReasonGroups1" EntitySet="ReasonGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reasons_ReasonGroupsID" Association="Self.FK_Reasons_ReasonGroupsID">
+            <End Role="ReasonGroups" EntitySet="ReasonGroups" />
+            <End Role="Reasons" EntitySet="Reasons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reasons_UnitsID" Association="Self.FK_Reasons_UnitsID">
+            <End Role="Units" EntitySet="Units" />
+            <End Role="Reasons" EntitySet="Reasons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReasonSynonym_ReasonsID" Association="Self.FK_ReasonSynonym_ReasonsID">
+            <End Role="Reasons" EntitySet="Reasons" />
+            <End Role="ReasonSynonyms" EntitySet="ReasonSynonyms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_UserGroupsID" Association="Self.FK_Users_UserGroupsID">
+            <End Role="UserGroups" EntitySet="UserGroups" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_vocReasons_docReasonMoveFundsDeatilReason" Association="Self.FK_vocReasons_docReasonMoveFundsDeatilReason">
+            <End Role="Reasons" EntitySet="Reasons" />
+            <End Role="MoveFundDetails" EntitySet="MoveFundDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_СontractorGroups_СontractorGroupsID" Association="Self.FK_СontractorGroups_СontractorGroupsID">
+            <End Role="СontractorGroups" EntitySet="СontractorGroups" />
+            <End Role="СontractorGroups1" EntitySet="СontractorGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сontractors_TownID" Association="Self.FK_Сontractors_TownID">
+            <End Role="Towns" EntitySet="Towns" />
+            <End Role="Сontractors" EntitySet="Сontractors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сontractors_СontractorGroupsID" Association="Self.FK_Сontractors_СontractorGroupsID">
+            <End Role="СontractorGroups" EntitySet="СontractorGroups" />
+            <End Role="Сontractors" EntitySet="Сontractors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сontractors_СontractorTypesID" Association="Self.FK_Сontractors_СontractorTypesID">
+            <End Role="СontractorTypes" EntitySet="СontractorTypes" />
+            <End Role="Сontractors" EntitySet="Сontractors" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BudgetOnlineModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="udf_Accounts_Result">
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Number" Type="Decimal" Precision="20" Scale="0" />
+          <Property Name="Description" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Balance" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="ContractorsID" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="udf_CreditLineDetails_Result">
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="DatePay" Type="DateTime" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="CreditLinesID" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="udf_CreditLines_Result">
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="DateStart" Type="DateTime" Nullable="false" />
+          <Property Name="DateEnd" Type="DateTime" />
+          <Property Name="IsClose" Type="Int32" />
+          <Property Name="AllAmount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Percent" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="CountPays" Type="Int32" />
+          <Property Name="PeriodPaysType" Type="Int32" />
+          <Property Name="CreditorAccountsID" Type="Int32" Nullable="false" />
+          <Property Name="BorrowerAccountsID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="udf_MoveFundDetails_Result">
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="MoveFundsID" Type="Int32" Nullable="false" />
+          <Property Name="ReasonsID" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Quantity" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="Description" Type="String" MaxLength="63" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="udf_MoveFunds_Result">
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="FromAccountsID" Type="Int32" Nullable="false" />
+          <Property Name="ToAccountsID" Type="Int32" Nullable="false" />
+          <Property Name="DateTimeMove" Type="DateTime" />
+          <Property Name="Description" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="udf_ReasonGroups_Result">
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="ReasonGroupsID" Type="Int32" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="udf_Reasons_Result">
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BarcodeEAN13" Type="Decimal" Precision="13" Scale="0" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Type_" Type="Int32" />
+          <Property Name="ReasonGroupsID" Type="Int32" Nullable="false" />
+          <Property Name="UnitsID" Type="Int32" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="udf_ReasonSynonyms_Result">
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ReasonsID" Type="Int32" Nullable="false" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="udf_Towns_Result">
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="31" FixedLength="false" Unicode="true" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="udf_Units_Result">
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="63" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="udf_СontractorGroups_Result">
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="СontractorGroupsID" Type="Int32" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="udf_Сontractors_Result">
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PersonSurname" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="PersonMiddleName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="PersonName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Birthday" Type="DateTime" />
+          <Property Name="TownsID" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WebSiteURL" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="EMail" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" />
+          <Property Name="Type1" Type="Int32" />
+          <Property Name="Type2" Type="Int32" />
+          <Property Name="СontractorTypesID" Type="Int32" />
+          <Property Name="СontractorGroupsID" Type="Int32" Nullable="false" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="udf_СontractorTypes_Result">
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UnitsID" Type="Int32" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Number" Type="Decimal" Precision="20" Scale="0" />
+          <Property Name="Description" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Balance" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="ContractorsID" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Сontractors" Relationship="Self.FK_Accounts_ContractorsID" FromRole="Accounts" ToRole="Сontractors" />
+          <NavigationProperty Name="CreditLines" Relationship="Self.FK_CreditLines_BorrowerAccountsID" FromRole="Accounts" ToRole="CreditLines" />
+          <NavigationProperty Name="CreditLines1" Relationship="Self.FK_CreditLines_CreditorAccountsID" FromRole="Accounts" ToRole="CreditLines" />
+          <NavigationProperty Name="MoveFunds" Relationship="Self.FK_MoveFunds_FromAccountsID" FromRole="Accounts" ToRole="MoveFunds" />
+          <NavigationProperty Name="MoveFunds1" Relationship="Self.FK_MoveFunds_ToAccountsID" FromRole="Accounts" ToRole="MoveFunds" />
+        </EntityType>
+        <EntityType Name="CreditLineDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="DatePay" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Amount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="CreditLinesID" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CreditLines" Relationship="Self.FK_CreditLineDetails_CreditLinesID" FromRole="CreditLineDetails" ToRole="CreditLines" />
+        </EntityType>
+        <EntityType Name="CreditLines">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="DateStart" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateEnd" Type="DateTime" Precision="0" />
+          <Property Name="IsClose" Type="Int32" />
+          <Property Name="AllAmount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Percent" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="CountPays" Type="Int32" />
+          <Property Name="PeriodPaysType" Type="Int32" />
+          <Property Name="CreditorAccountsID" Type="Int32" Nullable="false" />
+          <Property Name="BorrowerAccountsID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Accounts" Relationship="Self.FK_CreditLines_BorrowerAccountsID" FromRole="CreditLines" ToRole="Accounts" />
+          <NavigationProperty Name="Accounts1" Relationship="Self.FK_CreditLines_CreditorAccountsID" FromRole="CreditLines" ToRole="Accounts" />
+          <NavigationProperty Name="CreditLineDetails" Relationship="Self.FK_CreditLineDetails_CreditLinesID" FromRole="CreditLines" ToRole="CreditLineDetails" />
+        </EntityType>
+        <EntityType Name="MoveFundDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="MoveFundsID" Type="Int32" Nullable="false" />
+          <Property Name="ReasonsID" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Quantity" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="Description" Type="String" MaxLength="63" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MoveFunds" Relationship="Self.FK_MoveFundsDetails_MoveFundsID" FromRole="MoveFundDetails" ToRole="MoveFunds" />
+          <NavigationProperty Name="Reasons" Relationship="Self.FK_vocReasons_docReasonMoveFundsDeatilReason" FromRole="MoveFundDetails" ToRole="Reasons" />
+        </EntityType>
+        <EntityType Name="MoveFunds">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="FromAccountsID" Type="Int32" Nullable="false" />
+          <Property Name="ToAccountsID" Type="Int32" Nullable="false" />
+          <Property Name="DateTimeMove" Type="DateTime" Precision="0" />
+          <Property Name="Description" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Accounts" Relationship="Self.FK_MoveFunds_FromAccountsID" FromRole="MoveFunds" ToRole="Accounts" />
+          <NavigationProperty Name="Accounts1" Relationship="Self.FK_MoveFunds_ToAccountsID" FromRole="MoveFunds" ToRole="Accounts" />
+          <NavigationProperty Name="MoveFundDetails" Relationship="Self.FK_MoveFundsDetails_MoveFundsID" FromRole="MoveFunds" ToRole="MoveFundDetails" />
+        </EntityType>
+        <EntityType Name="ReasonGroups">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="ReasonGroupsID" Type="Int32" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ReasonGroups1" Relationship="Self.FK_ReasonGrops_ReasonGropsID" FromRole="ReasonGroups" ToRole="ReasonGroups1" />
+          <NavigationProperty Name="ReasonGroups2" Relationship="Self.FK_ReasonGrops_ReasonGropsID" FromRole="ReasonGroups1" ToRole="ReasonGroups" />
+          <NavigationProperty Name="Reasons" Relationship="Self.FK_Reasons_ReasonGroupsID" FromRole="ReasonGroups" ToRole="Reasons" />
+        </EntityType>
+        <EntityType Name="Reasons">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BarcodeEAN13" Type="Decimal" Precision="13" Scale="0" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Type_" Type="Int32" />
+          <Property Name="ReasonGroupsID" Type="Int32" Nullable="false" />
+          <Property Name="UnitsID" Type="Int32" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MoveFundDetails" Relationship="Self.FK_vocReasons_docReasonMoveFundsDeatilReason" FromRole="Reasons" ToRole="MoveFundDetails" />
+          <NavigationProperty Name="ReasonGroups" Relationship="Self.FK_Reasons_ReasonGroupsID" FromRole="Reasons" ToRole="ReasonGroups" />
+          <NavigationProperty Name="Units" Relationship="Self.FK_Reasons_UnitsID" FromRole="Reasons" ToRole="Units" />
+          <NavigationProperty Name="ReasonSynonyms" Relationship="Self.FK_ReasonSynonym_ReasonsID" FromRole="Reasons" ToRole="ReasonSynonyms" />
+        </EntityType>
+        <EntityType Name="ReasonSynonyms">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ReasonsID" Type="Int32" Nullable="false" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Reasons" Relationship="Self.FK_ReasonSynonym_ReasonsID" FromRole="ReasonSynonyms" ToRole="Reasons" />
+        </EntityType>
+        <EntityType Name="UserGroups">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Desciption" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="UserGroupsID" Type="Int32" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_UserGroupsID" FromRole="UserGroups" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EMail" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FIO" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Gender" Type="Boolean" />
+          <Property Name="Birthday" Type="DateTime" Precision="0" />
+          <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="UserGroupsID" Type="Int32" Nullable="false" />
+          <Property Name="AspNetUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="UserGroups" Relationship="Self.FK_Users_UserGroupsID" FromRole="Users" ToRole="UserGroups" />
+        </EntityType>
+        <EntityType Name="Towns">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="31" FixedLength="false" Unicode="true" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Сontractors" Relationship="Self.FK_Сontractors_TownID" FromRole="Towns" ToRole="Сontractors" />
+        </EntityType>
+        <EntityType Name="Units">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="63" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Reasons" Relationship="Self.FK_Reasons_UnitsID" FromRole="Units" ToRole="Reasons" />
+        </EntityType>
+        <EntityType Name="СontractorGroups">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="СontractorGroupsID" Type="Int32" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="СontractorGroups1" Relationship="Self.FK_СontractorGroups_СontractorGroupsID" FromRole="СontractorGroups" ToRole="СontractorGroups1" />
+          <NavigationProperty Name="СontractorGroups2" Relationship="Self.FK_СontractorGroups_СontractorGroupsID" FromRole="СontractorGroups1" ToRole="СontractorGroups" />
+          <NavigationProperty Name="Сontractors" Relationship="Self.FK_Сontractors_СontractorGroupsID" FromRole="СontractorGroups" ToRole="Сontractors" />
+        </EntityType>
+        <EntityType Name="Сontractors">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PersonSurname" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="PersonMiddleName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="PersonName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Birthday" Type="DateTime" Precision="0" />
+          <Property Name="TownsID" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WebSiteURL" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="EMail" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Type1" Type="Int32" />
+          <Property Name="Type2" Type="Int32" />
+          <Property Name="СontractorTypesID" Type="Int32" />
+          <Property Name="СontractorGroupsID" Type="Int32" Nullable="false" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Accounts" Relationship="Self.FK_Accounts_ContractorsID" FromRole="Сontractors" ToRole="Accounts" />
+          <NavigationProperty Name="Towns" Relationship="Self.FK_Сontractors_TownID" FromRole="Сontractors" ToRole="Towns" />
+          <NavigationProperty Name="СontractorGroups" Relationship="Self.FK_Сontractors_СontractorGroupsID" FromRole="Сontractors" ToRole="СontractorGroups" />
+          <NavigationProperty Name="СontractorTypes" Relationship="Self.FK_Сontractors_СontractorTypesID" FromRole="Сontractors" ToRole="СontractorTypes" />
+        </EntityType>
+        <EntityType Name="СontractorTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UnitsID" Type="Int32" />
+          <Property Name="UsersID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Сontractors" Relationship="Self.FK_Сontractors_СontractorTypesID" FromRole="СontractorTypes" ToRole="Сontractors" />
+        </EntityType>
+        <Association Name="FK_Accounts_ContractorsID">
+          <End Role="Сontractors" Type="Self.Сontractors" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Сontractors">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Accounts">
+              <PropertyRef Name="ContractorsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CreditLines_BorrowerAccountsID">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="CreditLines" Type="Self.CreditLines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CreditLines">
+              <PropertyRef Name="BorrowerAccountsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CreditLines_CreditorAccountsID">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="CreditLines" Type="Self.CreditLines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CreditLines">
+              <PropertyRef Name="CreditorAccountsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MoveFunds_FromAccountsID">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="MoveFunds" Type="Self.MoveFunds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MoveFunds">
+              <PropertyRef Name="FromAccountsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MoveFunds_ToAccountsID">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="MoveFunds" Type="Self.MoveFunds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MoveFunds">
+              <PropertyRef Name="ToAccountsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CreditLineDetails_CreditLinesID">
+          <End Role="CreditLines" Type="Self.CreditLines" Multiplicity="1" />
+          <End Role="CreditLineDetails" Type="Self.CreditLineDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreditLines">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CreditLineDetails">
+              <PropertyRef Name="CreditLinesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MoveFundsDetails_MoveFundsID">
+          <End Role="MoveFunds" Type="Self.MoveFunds" Multiplicity="1" />
+          <End Role="MoveFundDetails" Type="Self.MoveFundDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MoveFunds">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MoveFundDetails">
+              <PropertyRef Name="MoveFundsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_vocReasons_docReasonMoveFundsDeatilReason">
+          <End Role="Reasons" Type="Self.Reasons" Multiplicity="1" />
+          <End Role="MoveFundDetails" Type="Self.MoveFundDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reasons">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MoveFundDetails">
+              <PropertyRef Name="ReasonsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReasonGrops_ReasonGropsID">
+          <End Role="ReasonGroups" Type="Self.ReasonGroups" Multiplicity="0..1" />
+          <End Role="ReasonGroups1" Type="Self.ReasonGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReasonGroups">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ReasonGroups1">
+              <PropertyRef Name="ReasonGroupsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reasons_ReasonGroupsID">
+          <End Role="ReasonGroups" Type="Self.ReasonGroups" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Reasons" Type="Self.Reasons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReasonGroups">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Reasons">
+              <PropertyRef Name="ReasonGroupsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reasons_UnitsID">
+          <End Role="Units" Type="Self.Units" Multiplicity="0..1" />
+          <End Role="Reasons" Type="Self.Reasons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Units">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Reasons">
+              <PropertyRef Name="UnitsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReasonSynonym_ReasonsID">
+          <End Role="Reasons" Type="Self.Reasons" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ReasonSynonyms" Type="Self.ReasonSynonyms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reasons">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ReasonSynonyms">
+              <PropertyRef Name="ReasonsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_UserGroupsID">
+          <End Role="UserGroups" Type="Self.UserGroups" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserGroups">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="UserGroupsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сontractors_TownID">
+          <End Role="Towns" Type="Self.Towns" Multiplicity="0..1" />
+          <End Role="Сontractors" Type="Self.Сontractors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Towns">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Сontractors">
+              <PropertyRef Name="TownsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_СontractorGroups_СontractorGroupsID">
+          <End Role="СontractorGroups" Type="Self.СontractorGroups" Multiplicity="0..1" />
+          <End Role="СontractorGroups1" Type="Self.СontractorGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="СontractorGroups">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="СontractorGroups1">
+              <PropertyRef Name="СontractorGroupsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сontractors_СontractorGroupsID">
+          <End Role="СontractorGroups" Type="Self.СontractorGroups" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Сontractors" Type="Self.Сontractors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="СontractorGroups">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Сontractors">
+              <PropertyRef Name="СontractorGroupsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Сontractors_СontractorTypesID">
+          <End Role="СontractorTypes" Type="Self.СontractorTypes" Multiplicity="0..1" />
+          <End Role="Сontractors" Type="Self.Сontractors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="СontractorTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Сontractors">
+              <PropertyRef Name="СontractorTypesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BudgetEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Accounts" />
+          <EntitySet Name="CreditLineDetails" EntityType="Self.CreditLineDetails" />
+          <EntitySet Name="CreditLines" EntityType="Self.CreditLines" />
+          <EntitySet Name="MoveFundDetails" EntityType="Self.MoveFundDetails" />
+          <EntitySet Name="MoveFunds" EntityType="Self.MoveFunds" />
+          <EntitySet Name="ReasonGroups" EntityType="Self.ReasonGroups" />
+          <EntitySet Name="Reasons" EntityType="Self.Reasons" />
+          <EntitySet Name="ReasonSynonyms" EntityType="Self.ReasonSynonyms" />
+          <EntitySet Name="UserGroups" EntityType="Self.UserGroups" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="Towns" EntityType="Self.Towns" />
+          <EntitySet Name="Units" EntityType="Self.Units" />
+          <EntitySet Name="СontractorGroups" EntityType="Self.СontractorGroups" />
+          <EntitySet Name="Сontractors" EntityType="Self.Сontractors" />
+          <EntitySet Name="СontractorTypes" EntityType="Self.СontractorTypes" />
+          <AssociationSet Name="FK_Accounts_ContractorsID" Association="Self.FK_Accounts_ContractorsID">
+            <End Role="Сontractors" EntitySet="Сontractors" />
+            <End Role="Accounts" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CreditLines_BorrowerAccountsID" Association="Self.FK_CreditLines_BorrowerAccountsID">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="CreditLines" EntitySet="CreditLines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CreditLines_CreditorAccountsID" Association="Self.FK_CreditLines_CreditorAccountsID">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="CreditLines" EntitySet="CreditLines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MoveFunds_FromAccountsID" Association="Self.FK_MoveFunds_FromAccountsID">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="MoveFunds" EntitySet="MoveFunds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MoveFunds_ToAccountsID" Association="Self.FK_MoveFunds_ToAccountsID">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="MoveFunds" EntitySet="MoveFunds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CreditLineDetails_CreditLinesID" Association="Self.FK_CreditLineDetails_CreditLinesID">
+            <End Role="CreditLines" EntitySet="CreditLines" />
+            <End Role="CreditLineDetails" EntitySet="CreditLineDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MoveFundsDetails_MoveFundsID" Association="Self.FK_MoveFundsDetails_MoveFundsID">
+            <End Role="MoveFunds" EntitySet="MoveFunds" />
+            <End Role="MoveFundDetails" EntitySet="MoveFundDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_vocReasons_docReasonMoveFundsDeatilReason" Association="Self.FK_vocReasons_docReasonMoveFundsDeatilReason">
+            <End Role="Reasons" EntitySet="Reasons" />
+            <End Role="MoveFundDetails" EntitySet="MoveFundDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReasonGrops_ReasonGropsID" Association="Self.FK_ReasonGrops_ReasonGropsID">
+            <End Role="ReasonGroups" EntitySet="ReasonGroups" />
+            <End Role="ReasonGroups1" EntitySet="ReasonGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reasons_ReasonGroupsID" Association="Self.FK_Reasons_ReasonGroupsID">
+            <End Role="ReasonGroups" EntitySet="ReasonGroups" />
+            <End Role="Reasons" EntitySet="Reasons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reasons_UnitsID" Association="Self.FK_Reasons_UnitsID">
+            <End Role="Units" EntitySet="Units" />
+            <End Role="Reasons" EntitySet="Reasons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReasonSynonym_ReasonsID" Association="Self.FK_ReasonSynonym_ReasonsID">
+            <End Role="Reasons" EntitySet="Reasons" />
+            <End Role="ReasonSynonyms" EntitySet="ReasonSynonyms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_UserGroupsID" Association="Self.FK_Users_UserGroupsID">
+            <End Role="UserGroups" EntitySet="UserGroups" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сontractors_TownID" Association="Self.FK_Сontractors_TownID">
+            <End Role="Towns" EntitySet="Towns" />
+            <End Role="Сontractors" EntitySet="Сontractors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_СontractorGroups_СontractorGroupsID" Association="Self.FK_СontractorGroups_СontractorGroupsID">
+            <End Role="СontractorGroups" EntitySet="СontractorGroups" />
+            <End Role="СontractorGroups1" EntitySet="СontractorGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сontractors_СontractorGroupsID" Association="Self.FK_Сontractors_СontractorGroupsID">
+            <End Role="СontractorGroups" EntitySet="СontractorGroups" />
+            <End Role="Сontractors" EntitySet="Сontractors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Сontractors_СontractorTypesID" Association="Self.FK_Сontractors_СontractorTypesID">
+            <End Role="СontractorTypes" EntitySet="СontractorTypes" />
+            <End Role="Сontractors" EntitySet="Сontractors" />
+          </AssociationSet>
+          <FunctionImport Name="udf_Accounts" IsComposable="true" ReturnType="Collection(BudgetOnlineModel.udf_Accounts_Result)">
+            <Parameter Name="Userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="udf_CreditLineDetails" IsComposable="true" ReturnType="Collection(BudgetOnlineModel.udf_CreditLineDetails_Result)">
+            <Parameter Name="Userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="udf_CreditLines" IsComposable="true" ReturnType="Collection(BudgetOnlineModel.udf_CreditLines_Result)">
+            <Parameter Name="Userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="udf_MoveFundDetails" IsComposable="true" ReturnType="Collection(BudgetOnlineModel.udf_MoveFundDetails_Result)">
+            <Parameter Name="Userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="udf_MoveFunds" IsComposable="true" ReturnType="Collection(BudgetOnlineModel.udf_MoveFunds_Result)">
+            <Parameter Name="Userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="udf_ReasonGroups" IsComposable="true" ReturnType="Collection(BudgetOnlineModel.udf_ReasonGroups_Result)">
+            <Parameter Name="Userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="udf_Reasons" IsComposable="true" ReturnType="Collection(BudgetOnlineModel.udf_Reasons_Result)">
+            <Parameter Name="Userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="udf_ReasonSynonyms" IsComposable="true" ReturnType="Collection(BudgetOnlineModel.udf_ReasonSynonyms_Result)">
+            <Parameter Name="Userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="udf_Towns" IsComposable="true" ReturnType="Collection(BudgetOnlineModel.udf_Towns_Result)">
+            <Parameter Name="Userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="udf_Units" IsComposable="true" ReturnType="Collection(BudgetOnlineModel.udf_Units_Result)">
+            <Parameter Name="Userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="udf_СontractorGroups" IsComposable="true" ReturnType="Collection(BudgetOnlineModel.udf_СontractorGroups_Result)">
+            <Parameter Name="Userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="udf_Сontractors" IsComposable="true" ReturnType="Collection(BudgetOnlineModel.udf_Сontractors_Result)">
+            <Parameter Name="Userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="udf_СontractorTypes" IsComposable="true" ReturnType="Collection(BudgetOnlineModel.udf_СontractorTypes_Result)">
+            <Parameter Name="Userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище BudgetOnlineModelContainer" CdmEntityContainer="BudgetEntities">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="BudgetOnlineModel.Accounts">
+              <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="ContractorsID" ColumnName="ContractorsID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CreditLineDetails">
+            <EntityTypeMapping TypeName="BudgetOnlineModel.CreditLineDetails">
+              <MappingFragment StoreEntitySet="CreditLineDetails">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DatePay" ColumnName="DatePay" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="CreditLinesID" ColumnName="CreditLinesID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CreditLines">
+            <EntityTypeMapping TypeName="BudgetOnlineModel.CreditLines">
+              <MappingFragment StoreEntitySet="CreditLines">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+                <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+                <ScalarProperty Name="IsClose" ColumnName="IsClose" />
+                <ScalarProperty Name="AllAmount" ColumnName="AllAmount" />
+                <ScalarProperty Name="Percent" ColumnName="Percent" />
+                <ScalarProperty Name="CountPays" ColumnName="CountPays" />
+                <ScalarProperty Name="PeriodPaysType" ColumnName="PeriodPaysType" />
+                <ScalarProperty Name="CreditorAccountsID" ColumnName="CreditorAccountsID" />
+                <ScalarProperty Name="BorrowerAccountsID" ColumnName="BorrowerAccountsID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MoveFundDetails">
+            <EntityTypeMapping TypeName="BudgetOnlineModel.MoveFundDetails">
+              <MappingFragment StoreEntitySet="MoveFundDetails">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MoveFundsID" ColumnName="MoveFundsID" />
+                <ScalarProperty Name="ReasonsID" ColumnName="ReasonsID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MoveFunds">
+            <EntityTypeMapping TypeName="BudgetOnlineModel.MoveFunds">
+              <MappingFragment StoreEntitySet="MoveFunds">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FromAccountsID" ColumnName="FromAccountsID" />
+                <ScalarProperty Name="ToAccountsID" ColumnName="ToAccountsID" />
+                <ScalarProperty Name="DateTimeMove" ColumnName="DateTimeMove" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReasonGroups">
+            <EntityTypeMapping TypeName="BudgetOnlineModel.ReasonGroups">
+              <MappingFragment StoreEntitySet="ReasonGroups">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ReasonGroupsID" ColumnName="ReasonGroupsID" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reasons">
+            <EntityTypeMapping TypeName="BudgetOnlineModel.Reasons">
+              <MappingFragment StoreEntitySet="Reasons">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="BarcodeEAN13" ColumnName="BarcodeEAN13" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type_" ColumnName="Type_" />
+                <ScalarProperty Name="ReasonGroupsID" ColumnName="ReasonGroupsID" />
+                <ScalarProperty Name="UnitsID" ColumnName="UnitsID" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReasonSynonyms">
+            <EntityTypeMapping TypeName="BudgetOnlineModel.ReasonSynonyms">
+              <MappingFragment StoreEntitySet="ReasonSynonyms">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ReasonsID" ColumnName="ReasonsID" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserGroups">
+            <EntityTypeMapping TypeName="BudgetOnlineModel.UserGroups">
+              <MappingFragment StoreEntitySet="UserGroups">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Desciption" ColumnName="Desciption" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UserGroupsID" ColumnName="UserGroupsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="BudgetOnlineModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="EMail" ColumnName="EMail" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UserGroupsID" ColumnName="UserGroupsID" />
+                <ScalarProperty Name="AspNetUserID" ColumnName="AspNetUserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Towns">
+            <EntityTypeMapping TypeName="BudgetOnlineModel.Towns">
+              <MappingFragment StoreEntitySet="Towns">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Units">
+            <EntityTypeMapping TypeName="BudgetOnlineModel.Units">
+              <MappingFragment StoreEntitySet="Units">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="СontractorGroups">
+            <EntityTypeMapping TypeName="BudgetOnlineModel.СontractorGroups">
+              <MappingFragment StoreEntitySet="СontractorGroups">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="СontractorGroupsID" ColumnName="СontractorGroupsID" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Сontractors">
+            <EntityTypeMapping TypeName="BudgetOnlineModel.Сontractors">
+              <MappingFragment StoreEntitySet="Сontractors">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PersonSurname" ColumnName="PersonSurname" />
+                <ScalarProperty Name="PersonMiddleName" ColumnName="PersonMiddleName" />
+                <ScalarProperty Name="PersonName" ColumnName="PersonName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="TownsID" ColumnName="TownsID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhoneNumber1" ColumnName="PhoneNumber1" />
+                <ScalarProperty Name="PhoneNumber2" ColumnName="PhoneNumber2" />
+                <ScalarProperty Name="WebSiteURL" ColumnName="WebSiteURL" />
+                <ScalarProperty Name="EMail" ColumnName="EMail" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Type1" ColumnName="Type1" />
+                <ScalarProperty Name="Type2" ColumnName="Type2" />
+                <ScalarProperty Name="СontractorTypesID" ColumnName="СontractorTypesID" />
+                <ScalarProperty Name="СontractorGroupsID" ColumnName="СontractorGroupsID" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="СontractorTypes">
+            <EntityTypeMapping TypeName="BudgetOnlineModel.СontractorTypes">
+              <MappingFragment StoreEntitySet="СontractorTypes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="UnitsID" ColumnName="UnitsID" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="Хранилище BudgetOnlineModel.udf_Accounts" FunctionImportName="udf_Accounts">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BudgetOnlineModel.udf_Accounts_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="ContractorsID" ColumnName="ContractorsID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="Хранилище BudgetOnlineModel.udf_CreditLineDetails" FunctionImportName="udf_CreditLineDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BudgetOnlineModel.udf_CreditLineDetails_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DatePay" ColumnName="DatePay" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="CreditLinesID" ColumnName="CreditLinesID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="Хранилище BudgetOnlineModel.udf_CreditLines" FunctionImportName="udf_CreditLines">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BudgetOnlineModel.udf_CreditLines_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+                <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+                <ScalarProperty Name="IsClose" ColumnName="IsClose" />
+                <ScalarProperty Name="AllAmount" ColumnName="AllAmount" />
+                <ScalarProperty Name="Percent" ColumnName="Percent" />
+                <ScalarProperty Name="CountPays" ColumnName="CountPays" />
+                <ScalarProperty Name="PeriodPaysType" ColumnName="PeriodPaysType" />
+                <ScalarProperty Name="CreditorAccountsID" ColumnName="CreditorAccountsID" />
+                <ScalarProperty Name="BorrowerAccountsID" ColumnName="BorrowerAccountsID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="Хранилище BudgetOnlineModel.udf_MoveFundDetails" FunctionImportName="udf_MoveFundDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BudgetOnlineModel.udf_MoveFundDetails_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MoveFundsID" ColumnName="MoveFundsID" />
+                <ScalarProperty Name="ReasonsID" ColumnName="ReasonsID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="Хранилище BudgetOnlineModel.udf_MoveFunds" FunctionImportName="udf_MoveFunds">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BudgetOnlineModel.udf_MoveFunds_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FromAccountsID" ColumnName="FromAccountsID" />
+                <ScalarProperty Name="ToAccountsID" ColumnName="ToAccountsID" />
+                <ScalarProperty Name="DateTimeMove" ColumnName="DateTimeMove" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="Хранилище BudgetOnlineModel.udf_ReasonGroups" FunctionImportName="udf_ReasonGroups">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BudgetOnlineModel.udf_ReasonGroups_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ReasonGroupsID" ColumnName="ReasonGroupsID" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="Хранилище BudgetOnlineModel.udf_Reasons" FunctionImportName="udf_Reasons">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BudgetOnlineModel.udf_Reasons_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="BarcodeEAN13" ColumnName="BarcodeEAN13" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type_" ColumnName="Type_" />
+                <ScalarProperty Name="ReasonGroupsID" ColumnName="ReasonGroupsID" />
+                <ScalarProperty Name="UnitsID" ColumnName="UnitsID" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="Хранилище BudgetOnlineModel.udf_ReasonSynonyms" FunctionImportName="udf_ReasonSynonyms">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BudgetOnlineModel.udf_ReasonSynonyms_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ReasonsID" ColumnName="ReasonsID" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="Хранилище BudgetOnlineModel.udf_Towns" FunctionImportName="udf_Towns">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BudgetOnlineModel.udf_Towns_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="Хранилище BudgetOnlineModel.udf_Units" FunctionImportName="udf_Units">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BudgetOnlineModel.udf_Units_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="Хранилище BudgetOnlineModel.udf_СontractorGroups" FunctionImportName="udf_СontractorGroups">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BudgetOnlineModel.udf_СontractorGroups_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="СontractorGroupsID" ColumnName="СontractorGroupsID" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="Хранилище BudgetOnlineModel.udf_Сontractors" FunctionImportName="udf_Сontractors">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BudgetOnlineModel.udf_Сontractors_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PersonSurname" ColumnName="PersonSurname" />
+                <ScalarProperty Name="PersonMiddleName" ColumnName="PersonMiddleName" />
+                <ScalarProperty Name="PersonName" ColumnName="PersonName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="TownsID" ColumnName="TownsID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhoneNumber1" ColumnName="PhoneNumber1" />
+                <ScalarProperty Name="PhoneNumber2" ColumnName="PhoneNumber2" />
+                <ScalarProperty Name="WebSiteURL" ColumnName="WebSiteURL" />
+                <ScalarProperty Name="EMail" ColumnName="EMail" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Type1" ColumnName="Type1" />
+                <ScalarProperty Name="Type2" ColumnName="Type2" />
+                <ScalarProperty Name="СontractorTypesID" ColumnName="СontractorTypesID" />
+                <ScalarProperty Name="СontractorGroupsID" ColumnName="СontractorGroupsID" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="Хранилище BudgetOnlineModel.udf_СontractorTypes" FunctionImportName="udf_СontractorTypes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BudgetOnlineModel.udf_СontractorTypes_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="UnitsID" ColumnName="UnitsID" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

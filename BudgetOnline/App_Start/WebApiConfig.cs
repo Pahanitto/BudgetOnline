@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 
 namespace BudgetOnline
 {
@@ -10,6 +7,11 @@ namespace BudgetOnline
         public static void Register(HttpConfiguration config)
         {
             // Конфигурация и службы веб-API
+            //воткнем жсун на гвоздь)
+            var json = config.Formatters.JsonFormatter;
+            json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+            //GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.None;
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
 
             // Маршруты веб-API
             config.MapHttpAttributeRoutes();

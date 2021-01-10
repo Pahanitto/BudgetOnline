@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f38d754395764adb84c868d97d9c452d" Name="Diagram1">
+        <EntityTypeShape EntityType="BudgetOnlineModel.Accounts" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BudgetOnlineModel.CreditLineDetails" Width="1.5" PointX="9.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BudgetOnlineModel.CreditLines" Width="1.5" PointX="7.5" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BudgetOnlineModel.MoveFundDetails" Width="1.5" PointX="9.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BudgetOnlineModel.MoveFunds" Width="1.5" PointX="7.5" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BudgetOnlineModel.ReasonGroups" Width="1.5" PointX="5.25" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BudgetOnlineModel.Reasons" Width="1.5" PointX="7.5" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BudgetOnlineModel.ReasonSynonyms" Width="1.5" PointX="9.75" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="BudgetOnlineModel.UserGroups" Width="1.5" PointX="9.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="BudgetOnlineModel.Users" Width="1.5" PointX="12" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BudgetOnlineModel.Towns" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BudgetOnlineModel.Units" Width="1.5" PointX="5.25" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BudgetOnlineModel.СontractorGroups" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BudgetOnlineModel.Сontractors" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BudgetOnlineModel.СontractorTypes" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <AssociationConnector Association="BudgetOnlineModel.FK_Accounts_ContractorsID" ManuallyRouted="false" />
+        <AssociationConnector Association="BudgetOnlineModel.FK_CreditLines_BorrowerAccountsID" ManuallyRouted="false" />
+        <AssociationConnector Association="BudgetOnlineModel.FK_CreditLines_CreditorAccountsID" ManuallyRouted="false" />
+        <AssociationConnector Association="BudgetOnlineModel.FK_MoveFunds_FromAccountsID" ManuallyRouted="false" />
+        <AssociationConnector Association="BudgetOnlineModel.FK_MoveFunds_ToAccountsID" ManuallyRouted="false" />
+        <AssociationConnector Association="BudgetOnlineModel.FK_CreditLineDetails_CreditLinesID" ManuallyRouted="false" />
+        <AssociationConnector Association="BudgetOnlineModel.FK_MoveFundsDetails_MoveFundsID" ManuallyRouted="false" />
+        <AssociationConnector Association="BudgetOnlineModel.FK_vocReasons_docReasonMoveFundsDeatilReason" ManuallyRouted="false" />
+        <AssociationConnector Association="BudgetOnlineModel.FK_ReasonGrops_ReasonGropsID" ManuallyRouted="false" />
+        <AssociationConnector Association="BudgetOnlineModel.FK_Reasons_ReasonGroupsID" ManuallyRouted="false" />
+        <AssociationConnector Association="BudgetOnlineModel.FK_Reasons_UnitsID" ManuallyRouted="false" />
+        <AssociationConnector Association="BudgetOnlineModel.FK_ReasonSynonym_ReasonsID" ManuallyRouted="false" />
+        <AssociationConnector Association="BudgetOnlineModel.FK_Users_UserGroupsID" ManuallyRouted="false" />
+        <AssociationConnector Association="BudgetOnlineModel.FK_Сontractors_TownID" ManuallyRouted="false" />
+        <AssociationConnector Association="BudgetOnlineModel.FK_СontractorGroups_СontractorGroupsID" ManuallyRouted="false" />
+        <AssociationConnector Association="BudgetOnlineModel.FK_Сontractors_СontractorGroupsID" ManuallyRouted="false" />
+        <AssociationConnector Association="BudgetOnlineModel.FK_Сontractors_СontractorTypesID" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
